@@ -30,6 +30,7 @@ Terakhir Instalasi Plugin yang dibutuhkan
   php artisan breeze:install
   npm install
   php artisan migrate
+  php artisan db:seed
 ```
 Lalu jalankan website
 ```bash
