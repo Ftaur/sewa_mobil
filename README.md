@@ -36,3 +36,7 @@ Lalu jalankan website
 php artisan serve
 npm run dev
 ```
+
+## Screenshots
+
+![Database](public\img\database\database_sewa_mobil.png)
