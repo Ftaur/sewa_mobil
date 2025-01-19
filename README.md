@@ -39,4 +39,4 @@ npm run dev
 
 ## Screenshots
 
-![Database](public\img\database\database_sewa_mobil.png)
+![Database](/public/img/database/database_sewa_mobil.png)
