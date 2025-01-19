@@ -10,7 +10,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tambah Car</h1>
+        <h1 class="h3 mb-0 text-gray-800">Sewa Mobil</h1>
     </div>
 
     <!-- Content Row -->
@@ -41,21 +41,6 @@
                                     class="form-control" placeholder="Ketik...">
                             </div>
                         </div>
-
-                        {{--
-                        <label for="car_id">Select Car:</label>
-                        <select name="car_id" id="car_id" required>
-                            @foreach($availableCars as $car)
-                                <option value="{{ $car->id }}">{{ $car->brand }} - {{ $car->model }} ({{ $car->license_plate }})</option>
-                            @endforeach
-                        </select>
-
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" name="start_date" id="start_date" required>
-
-                        <label for="end_date">End Date:</label>
-                        <input type="date" name="end_date" id="end_date" required>
-                        --}}
 
                         <div class="form-group row">
                             <div class="col-sm-10">

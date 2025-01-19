@@ -10,7 +10,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Edit Car</h1>
+            <h1 class="h3 mb-0 text-gray-800">Pengembalian Mobil</h1>
         </div>
 
         <!-- Content Row -->
@@ -18,31 +18,29 @@
             <div class="col">
                 <div class="card shadow mb-4">
                     <div class="card-header">
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('return.store') }}">
                             @csrf
-
                             <div class="form-group row">
-                                <label for="rental_id" class="col-sm-2 col-form-label">Pilih Rental</label>
+                                <label for="license_plate" class="col-sm-2 col-form-label">Plat Nomer</label>
                                 <div class="col-sm-10">
-                                    <select name="rental_id" id="rental_id" class="form-control" required>
-                                        @foreach($userRentals as $rental)
-                                            <option value="{{ $rental->id }}">{{ $rental->car->brand }} - {{ $rental->car->model }} ({{ $rental->license_plate }})</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="license_plate" id="license_plate" class="form-control" required placeholder="Masukkan Plat Nomer Mobil">
                                 </div>
                             </div>
 
-                            {{-- <label for="rental_id">Select Rental:</label>
-                            <select name="rental_id" id="rental_id" required>
-                                @foreach($userRentals as $rental)
-                                    <option value="{{ $rental->id }}">{{ $rental->car->brand }} - {{ $rental->car->model }} ({{ $rental->license_plate }})</option>
-                                @endforeach
-                            </select> --}}
-
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <input type="submit" class="btn btn-primary" value="Simpan Data">
-                                    <button type="reset" class="btn btn-danger" value="Delete">Reset</button>
+                                    <input type="submit" class="btn btn-primary" value="Kembalikan Mobil" onclick="return confirm('Apakah anda yakin ingin mengembalikan mobil ini?')">
+                                    <button type="reset" class="btn btn-danger">Reset</button>
                                 </div>
                             </div>
                         </form>

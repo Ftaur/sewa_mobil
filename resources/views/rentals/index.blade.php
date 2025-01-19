@@ -6,7 +6,7 @@
 @section('content')
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Trip Perjalanan</h1>
+    <h1 class="h3 mb-2 text-gray-800">Penyewaan Mobil</h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -29,6 +29,7 @@
                     <thead>
                         <tr>
                             <th>Plat Nomer</th>
+                            <th>Mobil</th>
                             <th>Tanggal Sewa</th>
                             <th>Tanggak Kembali</th>
                             <th>Status</th>
@@ -39,6 +40,7 @@
                         @foreach($rentals as $rental)
                         <tr>
                             <td>{{ $rental->license_plate }}</td>
+                            <td>{{ $rental->car->brand }} {{ $rental->car->model }}</td>
                             <td>{{ $rental->start_date }}</td>
                             <td>{{ $rental->end_date }}</td>
                             <td>{{ $rental->status ? 'Kembali' : 'Sedang Disewa' }}</td>

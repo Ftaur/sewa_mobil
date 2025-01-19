@@ -36,9 +36,6 @@ return new class extends Migration
         Schema::create('car_returns', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rental_id')->constrained('rentals')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('license_plate');
-            $table->foreign('license_plate')->references('license_plate')->on('cars')->onDelete('cascade');
             $table->integer('fee');
             $table->timestamps();
         });

@@ -13,39 +13,45 @@ class CarReturnController extends Controller
     public function create()
     {
         // Get user rentals where the status is false (not returned)
-        $userRentals = Rental::with('car')
-            ->where('user_id', auth()->id())
-            ->where('status', false)
-            ->get();
+        // $userRentals = Rental::with('car')
+        //     ->where('user_id', auth()->id())
+        //     ->where('status', false)
+        //     ->get();
 
-        return view('returns.create', compact('userRentals'));
+        return view('returns.create');
     }
 
     public function store(Request $request)
     {
+        // dd($request);
         $validatedData = $request->validate([
-            'rental_id' => 'required|exists:rentals,id',
+            'license_plate' => 'required|string',
         ]);
 
         // dd($validatedData);
 
-        $rental = Rental::find($validatedData['rental_id']);
-        if ($rental->status) {
-            return redirect()->back()->withErrors('This car has already been returned.');
-        }
+        $rental = Rental::where('license_plate', $validatedData['license_plate'])
+        ->where('status', false)
+        ->where('user_id', auth()->id())
+        ->first();
 
-        $car = Car::where('license_plate', $rental->license_plate)->first();
+        // dd($rental);
+
+        if ($rental == null) {
+            return redirect()->back()->with('error', 'Tidak ada rental yang aktif untuk nomer plat ini.');
+        }
 
         $startDate = Carbon::parse($rental->start_date);
         $endDate = Carbon::parse($rental->end_date);
         $daysRented = $startDate->diffInDays($endDate);
 
-        $carReturn = new CarReturn();
-        $carReturn->user_id = auth()->id();
-        $carReturn->rental_id = $rental->id;
-        $carReturn->license_plate = $car->license_plate;
-        $carReturn->fee = $car->rental_price * $daysRented;
-        $carReturn->save();
+        $car = Car::where('license_plate', $rental->license_plate)->first();
+        $fee = $car->rental_price * $daysRented;
+
+        CarReturn::create([
+            'rental_id' => $rental->id,
+            'fee' => $fee,
+        ]);
 
         $rental->status = true;
         $rental->save();
@@ -58,7 +64,11 @@ class CarReturnController extends Controller
 
     public function index()
     {
-        $returns = CarReturn::where('user_id', auth()->id())->get();
+        $returns = CarReturn::with('rental.car')
+        ->whereHas('rental', function($query) {
+            $query->where('user_id', auth()->id());
+        })
+        ->get();
         return view('returns.index', compact('returns'));
     }
 }

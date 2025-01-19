@@ -37,7 +37,7 @@
                             <th>Model</th>
                             <th>Harga Sewa per hari</th>
                             <th>Tersedia</th>
-                            <th>Actions</th>
+                            <th>Opsi</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -6,11 +6,11 @@
 @section('content')
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Trip Perjalanan</h1>
+    <h1 class="h3 mb-2 text-gray-800">Pengembalian Mobil</h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tambah Rental</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tambah Pengembalian</h6>
         </div>
         <div class="card-body">
             <a href="{{ route('return.create') }}" class="btn btn-primary btn-sm">Pengembalian</a>
@@ -29,13 +29,15 @@
                     <thead>
                         <tr>
                             <th>Plat Nomer</th>
+                            <th>Mobil</th>
                             <th>Total Harga</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($returns as $return)
                         <tr>
-                            <td>{{ $return->license_plate }}</td>
+                            <td>{{ $return->rental->license_plate }}</td>
+                            <td>{{ $return->rental->car->brand }} {{ $return->rental->car->model }}</td>
                             <td>{{ number_format($return->fee, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
